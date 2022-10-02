@@ -1,0 +1,491 @@
+==ISSUE==
+Getting error attempting to build Chocolate Doom and run from terminal. The game runs fine if launched using the pre-built MacOS binary https://www.chocolate-doom.org/wiki/index.php/Downloads
+
+==STEPS==
+git clone https://github.com/chocolate-doom/chocpkg.git
+cd chocpkg
+./chocpkg/chocpkg build chocolate-doom
+cd build/chocolate-doom-3.0.1/src
+
+(copy Steam-purchased Doom(1993) wad file to directory, have tried with shareware wad file with same result)
+
+./chocolate-doom -iwad ./DOOM.WAD
+
+==ERROR REPORT==
+-------------------------------------
+Translated Report (Full Report Below)
+-------------------------------------
+
+Process:               chocolate-doom [29052]
+Path:                  /Users/USER/*/chocolate-doom
+Identifier:            chocolate-doom
+Version:               ???
+Code Type:             X86-64 (Native)
+Parent Process:        zsh [27577]
+Responsible:           Terminal [4055]
+User ID:               1344776677
+
+Date/Time:             2022-10-02 10:27:49.9296 -0400
+OS Version:            macOS 12.4 (21F79)
+Report Version:        12
+Bridge OS Version:     6.5 (19P5071)
+Anonymous UUID:        23D39FC6-954D-EFA2-1967-CBECE7F116C6
+
+Sleep/Wake UUID:       73EAD59F-1FA5-4172-AD7F-AB751320D34A
+
+Time Awake Since Boot: 82000 seconds
+Time Since Wake:       18446744073709548088 seconds
+
+System Integrity Protection: enabled
+
+Crashed Thread:        0  Dispatch queue: com.apple.main-thread
+
+Exception Type:        EXC_BAD_ACCESS (SIGSEGV)
+Exception Codes:       KERN_INVALID_ADDRESS at 0x00000000000003b0
+Exception Codes:       0x0000000000000001, 0x00000000000003b0
+Exception Note:        EXC_CORPSE_NOTIFY
+
+Termination Reason:    Namespace SIGNAL, Code 11 Segmentation fault: 11
+Terminating Process:   exc handler [29052]
+
+VM Region Info: 0x3b0 is not in any region.  Bytes before following region: 140737486462032
+      REGION TYPE                    START - END         [ VSIZE] PRT/MAX SHRMOD  REGION DETAIL
+      UNUSED SPACE AT START
+--->  
+      VM_ALLOCATE              7fffffe32000-7fffffe33000 [    4K] r-x/r-x SM=ALI  
+
+Thread 0 Crashed::  Dispatch queue: com.apple.main-thread
+0   libGL.dylib                   	    0x7ffa1d4d0ba8 glGetString + 15
+1   chocolate-doom                	       0x107dd83b8 CheckGLVersion + 24 (i_video.c:1322) [inlined]
+2   chocolate-doom                	       0x107dd83b8 I_InitGraphics + 1048 (i_video.c:1384)
+3   chocolate-doom                	       0x107df0a06 D_DoomLoop + 134 (d_main.c:449)
+4   chocolate-doom                	       0x107df239b D_DoomMain + 4107 (d_main.c:1895)
+5   chocolate-doom                	       0x107dcb371 main + 33 (i_main.c:48)
+6   chocolate-doom                	       0x107dcb344 start + 52
+
+Thread 1:: SDLTimer
+0   libsystem_kernel.dylib        	    0x7ff8044a93ea __psynch_cvwait + 10
+1   libsystem_pthread.dylib       	    0x7ff8044e3a6f _pthread_cond_wait + 1249
+2   libSDL2-2.0.0.dylib           	       0x108354a5e SDL_CondWaitTimeout_REAL + 142 (SDL_syscond.c:128)
+3   libSDL2-2.0.0.dylib           	       0x1083545d0 SDL_SemWaitTimeout_REAL + 80 (SDL_syssem.c:167)
+4   libSDL2-2.0.0.dylib           	       0x1082cd901 SDL_TimerThread + 113 (SDL_timer.c:201)
+5   libSDL2-2.0.0.dylib           	       0x1082cd41c SDL_RunThread + 60 (SDL_thread.c:289)
+6   libSDL2-2.0.0.dylib           	       0x1083542f9 RunThread + 9 (SDL_systhread.c:79)
+7   libsystem_pthread.dylib       	    0x7ff8044e34e1 _pthread_start + 125
+8   libsystem_pthread.dylib       	    0x7ff8044def6b thread_start + 15
+
+Thread 2:: AMCP Logging Spool
+0   libsystem_kernel.dylib        	    0x7ff8044a69b6 semaphore_wait_trap + 10
+1   caulk                         	    0x7ff80cfdb2e6 caulk::mach::semaphore::wait_or_error() + 16
+2   caulk                         	    0x7ff80cfc3148 caulk::concurrent::details::worker_thread::run() + 36
+3   caulk                         	    0x7ff80cfc2e0c void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*> > >(void*) + 41
+4   libsystem_pthread.dylib       	    0x7ff8044e34e1 _pthread_start + 125
+5   libsystem_pthread.dylib       	    0x7ff8044def6b thread_start + 15
+
+Thread 3:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 4:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 5:: AudioQueue thread
+0   libsystem_kernel.dylib        	    0x7ff8044a697a mach_msg_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff8044a6ce8 mach_msg + 56
+2   CoreFoundation                	    0x7ff8045aa38d __CFRunLoopServiceMachPort + 319
+3   CoreFoundation                	    0x7ff8045a8a18 __CFRunLoopRun + 1276
+4   CoreFoundation                	    0x7ff8045a7e5c CFRunLoopRunSpecific + 562
+5   libSDL2-2.0.0.dylib           	       0x108355752 audioqueue_thread + 1090 (SDL_coreaudio.m:814)
+6   libSDL2-2.0.0.dylib           	       0x1082cd41c SDL_RunThread + 60 (SDL_thread.c:289)
+7   libSDL2-2.0.0.dylib           	       0x1083542f9 RunThread + 9 (SDL_systhread.c:79)
+8   libsystem_pthread.dylib       	    0x7ff8044e34e1 _pthread_start + 125
+9   libsystem_pthread.dylib       	    0x7ff8044def6b thread_start + 15
+
+Thread 6:
+0   libsystem_kernel.dylib        	    0x7ff8044a69b6 semaphore_wait_trap + 10
+1   caulk                         	    0x7ff80cfdb2e6 caulk::mach::semaphore::wait_or_error() + 16
+2   caulk                         	    0x7ff80cfc3148 caulk::concurrent::details::worker_thread::run() + 36
+3   caulk                         	    0x7ff80cfc2e0c void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*> > >(void*) + 41
+4   libsystem_pthread.dylib       	    0x7ff8044e34e1 _pthread_start + 125
+5   libsystem_pthread.dylib       	    0x7ff8044def6b thread_start + 15
+
+Thread 7:: AQConverterThread
+0   libsystem_kernel.dylib        	    0x7ff8044a93ea __psynch_cvwait + 10
+1   libsystem_pthread.dylib       	    0x7ff8044e3a6f _pthread_cond_wait + 1249
+2   libAudioToolboxUtility.dylib  	    0x7ff810e81bc4 CADeprecated::CAGuard::Wait() + 54
+3   AudioToolbox                  	    0x7ff811f069e6 AQConverterManager::AQConverterThread::ConverterThreadEntry(void*) + 722
+4   libAudioToolboxUtility.dylib  	    0x7ff810e63e97 CADeprecated::CAPThread::Entry(CADeprecated::CAPThread*) + 77
+5   libsystem_pthread.dylib       	    0x7ff8044e34e1 _pthread_start + 125
+6   libsystem_pthread.dylib       	    0x7ff8044def6b thread_start + 15
+
+Thread 8:: com.apple.audio.IOThread.client
+0   libsystem_kernel.dylib        	    0x7ff8044a697a mach_msg_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff8044a6ce8 mach_msg + 56
+2   CoreAudio                     	    0x7ff80612ec87 HALB_MachPort::SendSimpleMessageWithSimpleReply(unsigned int, unsigned int, int, int&, bool, unsigned int) + 111
+3   CoreAudio                     	    0x7ff805fb9d6b HALC_ProxyIOContext::IOWorkLoop() + 3909
+4   CoreAudio                     	    0x7ff805fb885d invocation function for block in HALC_ProxyIOContext::HALC_ProxyIOContext(unsigned int, unsigned int) + 63
+5   CoreAudio                     	    0x7ff806184696 HALB_IOThread::Entry(void*) + 72
+6   libsystem_pthread.dylib       	    0x7ff8044e34e1 _pthread_start + 125
+7   libsystem_pthread.dylib       	    0x7ff8044def6b thread_start + 15
+
+Thread 9:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 10:: com.apple.NSEventThread
+0   libsystem_kernel.dylib        	    0x7ff8044a697a mach_msg_trap + 10
+1   libsystem_kernel.dylib        	    0x7ff8044a6ce8 mach_msg + 56
+2   CoreFoundation                	    0x7ff8045aa38d __CFRunLoopServiceMachPort + 319
+3   CoreFoundation                	    0x7ff8045a8a18 __CFRunLoopRun + 1276
+4   CoreFoundation                	    0x7ff8045a7e5c CFRunLoopRunSpecific + 562
+5   AppKit                        	    0x7ff807154c1e _NSEventThread + 132
+6   libsystem_pthread.dylib       	    0x7ff8044e34e1 _pthread_start + 125
+7   libsystem_pthread.dylib       	    0x7ff8044def6b thread_start + 15
+
+Thread 11:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 12:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 13:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 14:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 15:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 16:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 17:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+Thread 18:
+0   libsystem_pthread.dylib       	    0x7ff8044def48 start_wqthread + 0
+
+
+Thread 0 crashed with X86 Thread State (64-bit):
+  rax: 0x0000000000000000  rbx: 0x00000000ff000000  rcx: 0x0000000000000000  rdx: 0x00007ffa1d4d0b99
+  rdi: 0x0000000000001f02  rsi: 0x0000000000001f02  rbp: 0x00007ff7b81376c0  rsp: 0x00007ff7b81376c0
+   r8: 0x0000000000000000   r9: 0x0000000000000000  r10: 0x00007ff7b81375f0  r11: 0x00007ff7b81374e1
+  r12: 0x0000000107e8be38  r13: 0x0000000107e8b9ec  r14: 0x0000000000000280  r15: 0x0000000000003021
+  rip: 0x00007ffa1d4d0ba8  rfl: 0x0000000000210206  cr2: 0x00000000000003b0
+  
+Logical CPU:     10
+Error Code:      0x00000004 (no mapping for user data read)
+Trap Number:     14
+
+Thread 0 instruction stream:
+  48 8b 04 25 f0 00 00 00-48 8b 88 98 03 00 00 48  H..%....H......H
+  8b 38 5d ff e1 55 48 89-e5 48 89 f2 89 fe 65 48  .8]..UH..H....eH
+  8b 04 25 f0 00 00 00 48-8b 88 a0 03 00 00 48 8b  ..%....H......H.
+  38 5d ff e1 55 48 89 e5-48 89 fe 65 48 8b 04 25  8]..UH..H..eH..%
+  f0 00 00 00 48 8b 88 a8-03 00 00 48 8b 38 5d ff  ....H......H.8].
+  e1 55 48 89 e5 89 fe 65-48 8b 04 25 f0 00 00 00  .UH....eH..%....
+ [48]8b 88 b0 03 00 00 48-8b 38 5d ff e1 55 48 89  H......H.8]..UH.	<==
+  e5 48 89 d1 89 f2 89 fe-65 48 8b 04 25 f0 00 00  .H......eH..%...
+  00 4c 8b 80 b8 03 00 00-48 8b 38 5d 41 ff e0 55  .L......H.8]A..U
+  48 89 e5 48 89 d1 89 f2-89 fe 65 48 8b 04 25 f0  H..H......eH..%.
+  00 00 00 4c 8b 80 c0 03-00 00 48 8b 38 5d 41 ff  ...L......H.8]A.
+  e0 55 48 89 e5 48 89 d1-89 f2 89 fe 65 48 8b 04  .UH..H......eH..
+
+Binary Images:
+    0x7ffa1d4cf000 -     0x7ffa1d4d9fff libGL.dylib (*) <7a5491db-1b13-37bf-a174-112d53bf9031> /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib
+       0x107dc8000 -        0x107e73fff chocolate-doom (*) <022dea08-c561-32ab-b7b8-7018cb828a99> /Users/USER/*/chocolate-doom
+    0x7ff8044a5000 -     0x7ff8044dcfff libsystem_kernel.dylib (*) <61711d11-e776-3bc3-b9a2-6f9f37cb8499> /usr/lib/system/libsystem_kernel.dylib
+    0x7ff8044dd000 -     0x7ff8044e8fff libsystem_pthread.dylib (*) <bc574849-1aae-31e7-b350-916dda999d97> /usr/lib/system/libsystem_pthread.dylib
+       0x108266000 -        0x1083a1fff libSDL2-2.0.0.dylib (*) <7f371c9b-2e47-3711-9a27-fe1dafc50af4> /Users/USER/*/libSDL2-2.0.0.dylib
+    0x7ff80cfc1000 -     0x7ff80cfe2fff com.apple.audio.caulk (1.0) <42fecc51-73d2-3b5c-b109-208f4cb4c3cd> /System/Library/PrivateFrameworks/caulk.framework/Versions/A/caulk
+    0x7ff80452a000 -     0x7ff804a2cfff com.apple.CoreFoundation (6.9) <f8e45ef9-9fd2-3331-bb1b-703d5dacdaf1> /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+    0x7ff810e57000 -     0x7ff810e87fff libAudioToolboxUtility.dylib (*) <b42d7e99-5ac8-3c6e-9fcf-f99b4c388f33> /usr/lib/libAudioToolboxUtility.dylib
+    0x7ff811ed0000 -     0x7ff81200bfff com.apple.audio.toolbox.AudioToolbox (1.14) <7ffe3279-a735-3d5c-ba04-0f9479f781e8> /System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox
+    0x7ff805e00000 -     0x7ff806534fff com.apple.audio.CoreAudio (5.0) <1621fd80-991f-3b5f-97f3-dbbb21bdeba3> /System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio
+    0x7ff806fa8000 -     0x7ff807e36fff com.apple.AppKit (6.9) <832ad371-d3b8-3061-b4e2-1c4e0cffce0b> /System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+               0x0 - 0xffffffffffffffff ??? (*) <00000000-0000-0000-0000-000000000000> ???
+
+External Modification Summary:
+  Calls made by other processes targeting this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by this process:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+  Calls made by all processes on this machine:
+    task_for_pid: 0
+    thread_create: 0
+    thread_set_state: 0
+
+VM Region Summary:
+ReadOnly portion of Libraries: Total=863.7M resident=0K(0%) swapped_out_or_unallocated=863.7M(100%)
+Writable regions: Total=692.7M written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=692.7M(100%)
+
+                                VIRTUAL   REGION 
+REGION TYPE                        SIZE    COUNT (non-coalesced) 
+===========                     =======  ======= 
+Accelerate framework               512K        4 
+Activity Tracing                   256K        1 
+CG backing stores                 2688K        4 
+CG image                           684K        9 
+ColorSync                          220K       25 
+CoreAnimation                      140K       13 
+CoreGraphics                        12K        2 
+CoreUI image data                 1328K       10 
+Foundation                          16K        1 
+IOKit                             15.5M        2 
+Kernel Alloc Once                    8K        1 
+MALLOC                           284.7M       74 
+MALLOC guard page                   32K        8 
+MALLOC_LARGE (reserved)            348K        1         reserved VM address space (unallocated)
+MALLOC_NANO (reserved)           384.0M        1         reserved VM address space (unallocated)
+ObjC additional data                15K        1 
+STACK GUARD                       56.1M       19 
+Stack                             17.1M       19 
+VM_ALLOCATE                        696K       25 
+__CTF                               756        1 
+__DATA                            18.3M      295 
+__DATA_CONST                      12.2M      172 
+__DATA_DIRTY                       534K       97 
+__FONT_DATA                          4K        1 
+__LINKEDIT                       648.9M       14 
+__TEXT                           214.8M      315 
+__UNICODE                          592K        1 
+dyld private memory               1024K        1 
+mapped file                      148.2M       20 
+shared memory                      772K       16 
+===========                     =======  ======= 
+TOTAL                              1.8G     1153 
+TOTAL, minus reserved VM space     1.4G     1153 
+
+
+
+-----------
+Full Report
+-----------
+
+{"app_name":"chocolate-doom","timestamp":"2022-10-02 10:27:50.00 -0400","app_version":"","slice_uuid":"022dea08-c561-32ab-b7b8-7018cb828a99","build_version":"","platform":1,"share_with_app_devs":0,"is_first_party":1,"bug_type":"309","os_version":"macOS 12.4 (21F79)","incident_id":"9453C427-42E1-4666-82AF-8B9874A8A211","name":"chocolate-doom"}
+{
+  "uptime" : 82000,
+  "procLaunch" : "2022-10-02 10:27:48.5768 -0400",
+  "procRole" : "Foreground",
+  "version" : 2,
+  "userID" : 1344776677,
+  "deployVersion" : 210,
+  "modelCode" : "MacBookPro16,1",
+  "procStartAbsTime" : 82733325578927,
+  "coalitionID" : 616,
+  "osVersion" : {
+    "train" : "macOS 12.4",
+    "build" : "21F79",
+    "releaseType" : "User"
+  },
+  "captureTime" : "2022-10-02 10:27:49.9296 -0400",
+  "incident" : "9453C427-42E1-4666-82AF-8B9874A8A211",
+  "bug_type" : "309",
+  "pid" : 29052,
+  "procExitAbsTime" : 82734676971196,
+  "cpuType" : "X86-64",
+  "procName" : "chocolate-doom",
+  "procPath" : "\/Users\/USER\/*\/chocolate-doom",
+  "parentProc" : "zsh",
+  "parentPid" : 27577,
+  "coalitionName" : "com.apple.Terminal",
+  "crashReporterKey" : "23D39FC6-954D-EFA2-1967-CBECE7F116C6",
+  "responsiblePid" : 4055,
+  "responsibleProc" : "Terminal",
+  "wakeTime" : 18446744073709548088,
+  "bridgeVersion" : {"build":"19P5071","train":"6.5"},
+  "sleepWakeUUID" : "73EAD59F-1FA5-4172-AD7F-AB751320D34A",
+  "sip" : "enabled",
+  "vmRegionInfo" : "0x3b0 is not in any region.  Bytes before following region: 140737486462032\n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      UNUSED SPACE AT START\n--->  \n      VM_ALLOCATE              7fffffe32000-7fffffe33000 [    4K] r-x\/r-x SM=ALI  ",
+  "isCorpse" : 1,
+  "exception" : {"codes":"0x0000000000000001, 0x00000000000003b0","rawCodes":[1,944],"type":"EXC_BAD_ACCESS","signal":"SIGSEGV","subtype":"KERN_INVALID_ADDRESS at 0x00000000000003b0"},
+  "termination" : {"flags":0,"code":11,"namespace":"SIGNAL","indicator":"Segmentation fault: 11","byProc":"exc handler","byPid":29052},
+  "vmregioninfo" : "0x3b0 is not in any region.  Bytes before following region: 140737486462032\n      REGION TYPE                    START - END         [ VSIZE] PRT\/MAX SHRMOD  REGION DETAIL\n      UNUSED SPACE AT START\n--->  \n      VM_ALLOCATE              7fffffe32000-7fffffe33000 [    4K] r-x\/r-x SM=ALI  ",
+  "extMods" : {"caller":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"system":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"targeted":{"thread_create":0,"thread_set_state":0,"task_for_pid":0},"warnings":0},
+  "faultingThread" : 0,
+  "threads" : [{"triggered":true,"id":1428393,"instructionState":{"instructionStream":{"bytes":[72,139,4,37,240,0,0,0,72,139,136,152,3,0,0,72,139,56,93,255,225,85,72,137,229,72,137,242,137,254,101,72,139,4,37,240,0,0,0,72,139,136,160,3,0,0,72,139,56,93,255,225,85,72,137,229,72,137,254,101,72,139,4,37,240,0,0,0,72,139,136,168,3,0,0,72,139,56,93,255,225,85,72,137,229,137,254,101,72,139,4,37,240,0,0,0,72,139,136,176,3,0,0,72,139,56,93,255,225,85,72,137,229,72,137,209,137,242,137,254,101,72,139,4,37,240,0,0,0,76,139,128,184,3,0,0,72,139,56,93,65,255,224,85,72,137,229,72,137,209,137,242,137,254,101,72,139,4,37,240,0,0,0,76,139,128,192,3,0,0,72,139,56,93,65,255,224,85,72,137,229,72,137,209,137,242,137,254,101,72,139,4],"offset":96}},"threadState":{"r13":{"value":4427659756,"symbolLocation":0,"symbol":"autostart"},"rax":{"value":0},"rflags":{"value":2163206},"cpu":{"value":10},"r14":{"value":640},"rsi":{"value":7938},"r8":{"value":0},"cr2":{"value":944},"rdx":{"value":140712210140057,"symbolLocation":0,"symbol":"glGetString"},"r10":{"value":140701921932784},"r9":{"value":0},"r15":{"value":12321},"rbx":{"value":4278190080},"trap":{"value":14,"description":"(no mapping for user data read)"},"err":{"value":4},"r11":{"value":140701921932513},"rip":{"value":140712210140072,"matchesCrashFrame":1},"rbp":{"value":140701921932992},"rsp":{"value":140701921932992},"r12":{"value":4427660856,"symbolLocation":0,"symbol":"startmap"},"rcx":{"value":0},"flavor":"x86_THREAD_STATE","rdi":{"value":7938}},"queue":"com.apple.main-thread","frames":[{"imageOffset":7080,"symbol":"glGetString","symbolLocation":15,"imageIndex":0},{"symbol":"CheckGLVersion","inline":true,"imageIndex":1,"imageOffset":66488,"symbolLocation":24,"sourceLine":1322,"sourceFile":"i_video.c"},{"imageOffset":66488,"sourceLine":1384,"sourceFile":"i_video.c","symbol":"I_InitGraphics","imageIndex":1,"symbolLocation":1048},{"imageOffset":166406,"sourceLine":449,"sourceFile":"d_main.c","symbol":"D_DoomLoop","imageIndex":1,"symbolLocation":134},{"imageOffset":172955,"sourceLine":1895,"sourceFile":"d_main.c","symbol":"D_DoomMain","imageIndex":1,"symbolLocation":4107},{"imageOffset":13169,"sourceLine":48,"sourceFile":"i_main.c","symbol":"main","imageIndex":1,"symbolLocation":33},{"imageOffset":13124,"symbol":"start","symbolLocation":52,"imageIndex":1}]},{"id":1428396,"name":"SDLTimer","frames":[{"imageOffset":17386,"symbol":"__psynch_cvwait","symbolLocation":10,"imageIndex":2},{"imageOffset":27247,"symbol":"_pthread_cond_wait","symbolLocation":1249,"imageIndex":3},{"imageOffset":977502,"sourceLine":128,"sourceFile":"SDL_syscond.c","symbol":"SDL_CondWaitTimeout_REAL","imageIndex":4,"symbolLocation":142},{"imageOffset":976336,"sourceLine":167,"sourceFile":"SDL_syssem.c","symbol":"SDL_SemWaitTimeout_REAL","imageIndex":4,"symbolLocation":80},{"imageOffset":424193,"sourceLine":201,"sourceFile":"SDL_timer.c","symbol":"SDL_TimerThread","imageIndex":4,"symbolLocation":113},{"imageOffset":422940,"sourceLine":289,"sourceFile":"SDL_thread.c","symbol":"SDL_RunThread","imageIndex":4,"symbolLocation":60},{"imageOffset":975609,"sourceLine":79,"sourceFile":"SDL_systhread.c","symbol":"RunThread","imageIndex":4,"symbolLocation":9},{"imageOffset":25825,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":3},{"imageOffset":8043,"symbol":"thread_start","symbolLocation":15,"imageIndex":3}]},{"id":1428397,"name":"AMCP Logging Spool","frames":[{"imageOffset":6582,"symbol":"semaphore_wait_trap","symbolLocation":10,"imageIndex":2},{"imageOffset":107238,"symbol":"caulk::mach::semaphore::wait_or_error()","symbolLocation":16,"imageIndex":5},{"imageOffset":8520,"symbol":"caulk::concurrent::details::worker_thread::run()","symbolLocation":36,"imageIndex":5},{"imageOffset":7692,"symbol":"void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*> > >(void*)","symbolLocation":41,"imageIndex":5},{"imageOffset":25825,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":3},{"imageOffset":8043,"symbol":"thread_start","symbolLocation":15,"imageIndex":3}]},{"id":1428425,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428426,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428427,"name":"AudioQueue thread","frames":[{"imageOffset":6522,"symbol":"mach_msg_trap","symbolLocation":10,"imageIndex":2},{"imageOffset":7400,"symbol":"mach_msg","symbolLocation":56,"imageIndex":2},{"imageOffset":525197,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":319,"imageIndex":6},{"imageOffset":518680,"symbol":"__CFRunLoopRun","symbolLocation":1276,"imageIndex":6},{"imageOffset":515676,"symbol":"CFRunLoopRunSpecific","symbolLocation":562,"imageIndex":6},{"imageOffset":980818,"sourceLine":814,"sourceFile":"SDL_coreaudio.m","symbol":"audioqueue_thread","imageIndex":4,"symbolLocation":1090},{"imageOffset":422940,"sourceLine":289,"sourceFile":"SDL_thread.c","symbol":"SDL_RunThread","imageIndex":4,"symbolLocation":60},{"imageOffset":975609,"sourceLine":79,"sourceFile":"SDL_systhread.c","symbol":"RunThread","imageIndex":4,"symbolLocation":9},{"imageOffset":25825,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":3},{"imageOffset":8043,"symbol":"thread_start","symbolLocation":15,"imageIndex":3}]},{"id":1428428,"frames":[{"imageOffset":6582,"symbol":"semaphore_wait_trap","symbolLocation":10,"imageIndex":2},{"imageOffset":107238,"symbol":"caulk::mach::semaphore::wait_or_error()","symbolLocation":16,"imageIndex":5},{"imageOffset":8520,"symbol":"caulk::concurrent::details::worker_thread::run()","symbolLocation":36,"imageIndex":5},{"imageOffset":7692,"symbol":"void* caulk::thread_proxy<std::__1::tuple<caulk::thread::attributes, void (caulk::concurrent::details::worker_thread::*)(), std::__1::tuple<caulk::concurrent::details::worker_thread*> > >(void*)","symbolLocation":41,"imageIndex":5},{"imageOffset":25825,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":3},{"imageOffset":8043,"symbol":"thread_start","symbolLocation":15,"imageIndex":3}]},{"id":1428438,"name":"AQConverterThread","frames":[{"imageOffset":17386,"symbol":"__psynch_cvwait","symbolLocation":10,"imageIndex":2},{"imageOffset":27247,"symbol":"_pthread_cond_wait","symbolLocation":1249,"imageIndex":3},{"imageOffset":175044,"symbol":"CADeprecated::CAGuard::Wait()","symbolLocation":54,"imageIndex":7},{"imageOffset":223718,"symbol":"AQConverterManager::AQConverterThread::ConverterThreadEntry(void*)","symbolLocation":722,"imageIndex":8},{"imageOffset":52887,"symbol":"CADeprecated::CAPThread::Entry(CADeprecated::CAPThread*)","symbolLocation":77,"imageIndex":7},{"imageOffset":25825,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":3},{"imageOffset":8043,"symbol":"thread_start","symbolLocation":15,"imageIndex":3}]},{"id":1428439,"name":"com.apple.audio.IOThread.client","frames":[{"imageOffset":6522,"symbol":"mach_msg_trap","symbolLocation":10,"imageIndex":2},{"imageOffset":7400,"symbol":"mach_msg","symbolLocation":56,"imageIndex":2},{"imageOffset":3337351,"symbol":"HALB_MachPort::SendSimpleMessageWithSimpleReply(unsigned int, unsigned int, int, int&, bool, unsigned int)","symbolLocation":111,"imageIndex":9},{"imageOffset":1809771,"symbol":"HALC_ProxyIOContext::IOWorkLoop()","symbolLocation":3909,"imageIndex":9},{"imageOffset":1804381,"symbol":"invocation function for block in HALC_ProxyIOContext::HALC_ProxyIOContext(unsigned int, unsigned int)","symbolLocation":63,"imageIndex":9},{"imageOffset":3688086,"symbol":"HALB_IOThread::Entry(void*)","symbolLocation":72,"imageIndex":9},{"imageOffset":25825,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":3},{"imageOffset":8043,"symbol":"thread_start","symbolLocation":15,"imageIndex":3}]},{"id":1428478,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428513,"name":"com.apple.NSEventThread","frames":[{"imageOffset":6522,"symbol":"mach_msg_trap","symbolLocation":10,"imageIndex":2},{"imageOffset":7400,"symbol":"mach_msg","symbolLocation":56,"imageIndex":2},{"imageOffset":525197,"symbol":"__CFRunLoopServiceMachPort","symbolLocation":319,"imageIndex":6},{"imageOffset":518680,"symbol":"__CFRunLoopRun","symbolLocation":1276,"imageIndex":6},{"imageOffset":515676,"symbol":"CFRunLoopRunSpecific","symbolLocation":562,"imageIndex":6},{"imageOffset":1756190,"symbol":"_NSEventThread","symbolLocation":132,"imageIndex":10},{"imageOffset":25825,"symbol":"_pthread_start","symbolLocation":125,"imageIndex":3},{"imageOffset":8043,"symbol":"thread_start","symbolLocation":15,"imageIndex":3}]},{"id":1428516,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428517,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428518,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428519,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428520,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428521,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428522,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]},{"id":1428523,"frames":[{"imageOffset":8008,"symbol":"start_wqthread","symbolLocation":0,"imageIndex":3}]}],
+  "usedImages" : [
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140712210132992,
+    "size" : 45056,
+    "uuid" : "7a5491db-1b13-37bf-a174-112d53bf9031",
+    "path" : "\/System\/Library\/Frameworks\/OpenGL.framework\/Versions\/A\/Libraries\/libGL.dylib",
+    "name" : "libGL.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4426858496,
+    "size" : 704512,
+    "uuid" : "022dea08-c561-32ab-b7b8-7018cb828a99",
+    "path" : "\/Users\/USER\/*\/chocolate-doom",
+    "name" : "chocolate-doom"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703200595968,
+    "size" : 229376,
+    "uuid" : "61711d11-e776-3bc3-b9a2-6f9f37cb8499",
+    "path" : "\/usr\/lib\/system\/libsystem_kernel.dylib",
+    "name" : "libsystem_kernel.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703200825344,
+    "size" : 49152,
+    "uuid" : "bc574849-1aae-31e7-b350-916dda999d97",
+    "path" : "\/usr\/lib\/system\/libsystem_pthread.dylib",
+    "name" : "libsystem_pthread.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 4431699968,
+    "size" : 1294336,
+    "uuid" : "7f371c9b-2e47-3711-9a27-fe1dafc50af4",
+    "path" : "\/Users\/USER\/*\/libSDL2-2.0.0.dylib",
+    "name" : "libSDL2-2.0.0.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703346462720,
+    "CFBundleShortVersionString" : "1.0",
+    "CFBundleIdentifier" : "com.apple.audio.caulk",
+    "size" : 139264,
+    "uuid" : "42fecc51-73d2-3b5c-b109-208f4cb4c3cd",
+    "path" : "\/System\/Library\/PrivateFrameworks\/caulk.framework\/Versions\/A\/caulk",
+    "name" : "caulk"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64h",
+    "base" : 140703201140736,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.CoreFoundation",
+    "size" : 5255168,
+    "uuid" : "f8e45ef9-9fd2-3331-bb1b-703d5dacdaf1",
+    "path" : "\/System\/Library\/Frameworks\/CoreFoundation.framework\/Versions\/A\/CoreFoundation",
+    "name" : "CoreFoundation",
+    "CFBundleVersion" : "1863"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703412088832,
+    "size" : 200704,
+    "uuid" : "b42d7e99-5ac8-3c6e-9fcf-f99b4c388f33",
+    "path" : "\/usr\/lib\/libAudioToolboxUtility.dylib",
+    "name" : "libAudioToolboxUtility.dylib"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703429361664,
+    "CFBundleShortVersionString" : "1.14",
+    "CFBundleIdentifier" : "com.apple.audio.toolbox.AudioToolbox",
+    "size" : 1294336,
+    "uuid" : "7ffe3279-a735-3d5c-ba04-0f9479f781e8",
+    "path" : "\/System\/Library\/Frameworks\/AudioToolbox.framework\/Versions\/A\/AudioToolbox",
+    "name" : "AudioToolbox",
+    "CFBundleVersion" : "1.14"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703227183104,
+    "CFBundleShortVersionString" : "5.0",
+    "CFBundleIdentifier" : "com.apple.audio.CoreAudio",
+    "size" : 7557120,
+    "uuid" : "1621fd80-991f-3b5f-97f3-dbbb21bdeba3",
+    "path" : "\/System\/Library\/Frameworks\/CoreAudio.framework\/Versions\/A\/CoreAudio",
+    "name" : "CoreAudio",
+    "CFBundleVersion" : "5.0"
+  },
+  {
+    "source" : "P",
+    "arch" : "x86_64",
+    "base" : 140703245697024,
+    "CFBundleShortVersionString" : "6.9",
+    "CFBundleIdentifier" : "com.apple.AppKit",
+    "size" : 15265792,
+    "uuid" : "832ad371-d3b8-3061-b4e2-1c4e0cffce0b",
+    "path" : "\/System\/Library\/Frameworks\/AppKit.framework\/Versions\/C\/AppKit",
+    "name" : "AppKit",
+    "CFBundleVersion" : "2113.50.132"
+  },
+  {
+    "size" : 0,
+    "source" : "A",
+    "base" : 0,
+    "uuid" : "00000000-0000-0000-0000-000000000000"
+  }
+],
+  "sharedCache" : {
+  "base" : 140703197569024,
+  "size" : 15220686848,
+  "uuid" : "398acfb4-57f6-31e0-bc82-e9959e5c92ce"
+},
+  "vmSummary" : "ReadOnly portion of Libraries: Total=863.7M resident=0K(0%) swapped_out_or_unallocated=863.7M(100%)\nWritable regions: Total=692.7M written=0K(0%) resident=0K(0%) swapped_out=0K(0%) unallocated=692.7M(100%)\n\n                                VIRTUAL   REGION \nREGION TYPE                        SIZE    COUNT (non-coalesced) \n===========                     =======  ======= \nAccelerate framework               512K        4 \nActivity Tracing                   256K        1 \nCG backing stores                 2688K        4 \nCG image                           684K        9 \nColorSync                          220K       25 \nCoreAnimation                      140K       13 \nCoreGraphics                        12K        2 \nCoreUI image data                 1328K       10 \nFoundation                          16K        1 \nIOKit                             15.5M        2 \nKernel Alloc Once                    8K        1 \nMALLOC                           284.7M       74 \nMALLOC guard page                   32K        8 \nMALLOC_LARGE (reserved)            348K        1         reserved VM address space (unallocated)\nMALLOC_NANO (reserved)           384.0M        1         reserved VM address space (unallocated)\nObjC additional data                15K        1 \nSTACK GUARD                       56.1M       19 \nStack                             17.1M       19 \nVM_ALLOCATE                        696K       25 \n__CTF                               756        1 \n__DATA                            18.3M      295 \n__DATA_CONST                      12.2M      172 \n__DATA_DIRTY                       534K       97 \n__FONT_DATA                          4K        1 \n__LINKEDIT                       648.9M       14 \n__TEXT                           214.8M      315 \n__UNICODE                          592K        1 \ndyld private memory               1024K        1 \nmapped file                      148.2M       20 \nshared memory                      772K       16 \n===========                     =======  ======= \nTOTAL                              1.8G     1153 \nTOTAL, minus reserved VM space     1.4G     1153 \n",
+  "legacyInfo" : {
+  "threadTriggered" : {
+    "queue" : "com.apple.main-thread"
+  }
+},
+  "trialInfo" : {
+  "rollouts" : [
+    {
+      "rolloutId" : "60356660bbe37970735c5624",
+      "factorPackIds" : {
+
+      },
+      "deploymentId" : 240000027
+    },
+    {
+      "rolloutId" : "61301e3a61217b3110231469",
+      "factorPackIds" : {
+        "SIRI_FIND_MY_CONFIGURATION_FILES" : "6216ae152a40e71046e16225"
+      },
+      "deploymentId" : 240000016
+    }
+  ],
+  "experiments" : [
+    {
+      "treatmentId" : "5b729754-3882-4560-826f-9c0bc27d77c6",
+      "experimentId" : "6192fb082171a2330e561df0",
+      "deploymentId" : 400000034
+    }
+  ]
+}
+}
+
+Model: MacBookPro16,1, BootROM 1731.120.10.0.0 (iBridge: 19.16.15071.0.0,0), 6 processors, 6-Core Intel Core i7, 2.6 GHz, 16 GB, SMC 
+Graphics: Intel UHD Graphics 630, Intel UHD Graphics 630, Built-In
+Display: Color LCD, 3072 x 1920 Retina, Main, MirrorOff, Online
+Graphics: AMD Radeon Pro 5300M, AMD Radeon Pro 5300M, PCIe, 4 GB
+Memory Module: BANK 0/ChannelA-DIMM0, 8 GB, DDR4, 2667 MHz, SK Hynix, HMA81GS6CJR8N-VK
+Memory Module: BANK 2/ChannelB-DIMM0, 8 GB, DDR4, 2667 MHz, SK Hynix, HMA81GS6CJR8N-VK
+AirPort: spairport_wireless_card_type_wifi (0x14E4, 0x7BF), wl0: Jul 12 2021 18:02:56 version 9.30.464.0.32.5.76 FWID 01-c081cfed
+Bluetooth: Version (null), 0 services, 0 devices, 0 incoming serial ports
+Network Service: Wi-Fi, AirPort, en0
+USB Device: USB31Bus
+USB Device: FIDO Dongle
+USB Device: T2Bus
+USB Device: composite_device
+USB Device: Touch Bar Backlight
+USB Device: Touch Bar Display
+USB Device: Apple Internal Keyboard / Trackpad
+USB Device: Headset
+USB Device: Ambient Light Sensor
+USB Device: FaceTime HD Camera (Built-in)
+USB Device: Apple T2 Controller
+Thunderbolt Bus: MacBook Pro, Apple Inc., 63.5
+Thunderbolt Bus: MacBook Pro, Apple Inc., 63.5
+
